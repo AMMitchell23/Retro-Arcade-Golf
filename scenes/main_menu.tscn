@@ -1,0 +1,105 @@
+[gd_scene format=3]
+
+[ext_resource type="Script" path="res://scripts/main_menu.gd" id="1_menu"]
+
+[node name="MainMenu" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_menu")
+
+[node name="Background" type="ColorRect" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.03, 0.03, 0.06, 1)
+
+[node name="Center" type="CenterContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Main" type="VBoxContainer" parent="Center"]
+layout_mode = 2
+theme_override_constants/separation = 16
+
+[node name="Title" type="Label" parent="Center/Main"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.22, 1, 0.08, 1)
+theme_override_font_sizes/font_size = 20
+text = "RETRO ARCADE GOLF"
+
+[node name="Tagline" type="Label" parent="Center/Main"]
+layout_mode = 2
+theme_override_colors/font_color = Color(1, 0.17, 0.84, 1)
+text = "~ a neon party golf game ~"
+horizontal_alignment = 1
+
+[node name="PlayButton" type="Button" parent="Center/Main"]
+custom_minimum_size = Vector2(320, 48)
+layout_mode = 2
+size_flags_horizontal = 4
+text = "[ PLAY ]"
+
+[node name="SettingsButton" type="Button" parent="Center/Main"]
+custom_minimum_size = Vector2(320, 48)
+layout_mode = 2
+size_flags_horizontal = 4
+disabled = true
+text = "[ SETTINGS ]  soon"
+
+[node name="QuitButton" type="Button" parent="Center/Main"]
+custom_minimum_size = Vector2(320, 48)
+layout_mode = 2
+size_flags_horizontal = 4
+text = "[ QUIT ]"
+
+[node name="PlayMenu" type="VBoxContainer" parent="Center"]
+visible = false
+layout_mode = 2
+theme_override_constants/separation = 16
+
+[node name="Header" type="Label" parent="Center/PlayMenu"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.22, 1, 0.08, 1)
+theme_override_font_sizes/font_size = 32
+text = "> PLAY_"
+horizontal_alignment = 1
+
+[node name="SingleButton" type="Button" parent="Center/PlayMenu"]
+custom_minimum_size = Vector2(380, 48)
+layout_mode = 2
+text = "[ LOCAL SINGLEPLAYER ]"
+
+[node name="PlayerRow" type="HBoxContainer" parent="Center/PlayMenu"]
+layout_mode = 2
+alignment = 1
+
+[node name="PlayersLabel" type="Label" parent="Center/PlayMenu/PlayerRow"]
+layout_mode = 2
+text = "PLAYERS"
+
+[node name="PlayerCount" type="SpinBox" parent="Center/PlayMenu/PlayerRow"]
+layout_mode = 2
+min_value = 2.0
+max_value = 4.0
+value = 2.0
+
+[node name="MultiButton" type="Button" parent="Center/PlayMenu"]
+custom_minimum_size = Vector2(380, 48)
+layout_mode = 2
+text = "[ LOCAL MULTIPLAYER ]"
+
+[node name="BackButton" type="Button" parent="Center/PlayMenu"]
+custom_minimum_size = Vector2(380, 48)
+layout_mode = 2
+text = "[ BACK ]"
