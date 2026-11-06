@@ -1,0 +1,75 @@
+[gd_scene format=3]
+
+[ext_resource type="Script" path="res://scripts/hud.gd" id="1_hud"]
+
+[node name="HUD" type="CanvasLayer"]
+script = ExtResource("1_hud")
+
+[node name="Info" type="Label" parent="."]
+offset_left = 24.0
+offset_top = 16.0
+offset_right = 524.0
+offset_bottom = 120.0
+text = "HOLE 1   PAR 3
+STROKES 0"
+
+[node name="Scores" type="Label" parent="."]
+offset_left = 880.0
+offset_top = 16.0
+offset_right = 1256.0
+offset_bottom = 160.0
+horizontal_alignment = 2
+
+[node name="Aim" type="Label" parent="."]
+offset_left = 24.0
+offset_top = 616.0
+offset_right = 1256.0
+offset_bottom = 648.0
+theme_override_colors/font_color = Color(0, 0.9, 1, 1)
+text = "ANGLE  45°   POWER [##########----------]  50%"
+
+[node name="Hint" type="Label" parent="."]
+offset_left = 24.0
+offset_top = 664.0
+offset_right = 1256.0
+offset_bottom = 696.0
+theme_override_colors/font_color = Color(0.5, 0.56, 0.62, 1)
+theme_override_font_sizes/font_size = 16
+text = "A/D or LEFT/RIGHT or mouse: aim    W/S or UP/DOWN or wheel: power    SPACE or click: shoot    ESC: menu"
+
+[node name="Message" type="Label" parent="."]
+offset_left = 140.0
+offset_top = 180.0
+offset_right = 1140.0
+offset_bottom = 240.0
+theme_override_font_sizes/font_size = 36
+horizontal_alignment = 1
+
+[node name="Results" type="PanelContainer" parent="."]
+offset_left = 340.0
+offset_top = 140.0
+offset_right = 940.0
+offset_bottom = 580.0
+
+[node name="Box" type="VBoxContainer" parent="Results"]
+layout_mode = 2
+theme_override_constants/separation = 16
+
+[node name="Title" type="Label" parent="Results/Box"]
+layout_mode = 2
+theme_override_colors/font_color = Color(1, 0.17, 0.84, 1)
+theme_override_font_sizes/font_size = 32
+text = "== RESULTS =="
+horizontal_alignment = 1
+
+[node name="Table" type="Label" parent="Results/Box"]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="AgainButton" type="Button" parent="Results/Box"]
+layout_mode = 2
+text = "[ PLAY AGAIN ]"
+
+[node name="MenuButton" type="Button" parent="Results/Box"]
+layout_mode = 2
+text = "[ MAIN MENU ]"
