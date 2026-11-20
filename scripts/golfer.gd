@@ -91,11 +91,9 @@ func _draw() -> void:
 	_glow_line(SHOULDER, hands, color, 3.0)
 	_glow_line(SHOULDER + Vector2(0, 3), hands, color, 2.0)
 
-	# Head with a golf cap: crown plus a brim sticking out the front.
+	# Head.
 	draw_circle(HEAD, HEAD_RADIUS + 4.0, Color(color, 0.12))
 	draw_arc(HEAD, HEAD_RADIUS, 0.0, TAU, 24, color, 2.0)
-	draw_arc(HEAD, HEAD_RADIUS + 1.0, PI, TAU, 12, color, 3.0)
-	draw_line(HEAD + Vector2(HEAD_RADIUS - 1.0, -2.0), HEAD + Vector2(HEAD_RADIUS + 7.0, -1.0), color, 3.0)
 
 
 ## A bright line with a faint wide one underneath, to fake a neon glow.
