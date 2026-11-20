@@ -27,7 +27,7 @@ const STOP_SPEED := 8.0     # below this the ball counts as stopped
 const STOP_TIME := 0.6      # ...for this many seconds
 const MAX_ROLL_TIME := 12.0 # safety net for a ball that never settles
 
-enum State { AIMING, ROLLING, WAITING, FINISHED }
+enum State { AIMING, SWINGING, ROLLING, WAITING, FINISHED }
 
 var state := State.WAITING
 var balls: Array[GolfBall] = []
@@ -42,7 +42,7 @@ var _solid_polygon := PackedVector2Array()
 
 @onready var camera: Camera2D = $Camera2D
 @onready var hud: GameHUD = $HUD
-@onready var golfer: Label = $Golfer
+@onready var golfer: Golfer = $Golfer
 @onready var aim_line: Line2D = $AimLine
 @onready var cup: Area2D = $Cup
 
@@ -85,7 +85,8 @@ func _start_turn(index: int) -> void:
 	for i in balls.size():
 		balls[i].active = (i == current)
 	var player: Dictionary = Game.players[current]
-	golfer.modulate = player["color"]
+	golfer.reset()
+	golfer.color = player["color"]
 	aim_line.default_color = player["color"]
 	if Game.players.size() > 1:
 		hud.flash("%s, YOUR SHOT" % player["name"], player["color"])
@@ -93,6 +94,13 @@ func _start_turn(index: int) -> void:
 
 
 func _shoot() -> void:
+	# Swing the club first; the ball leaves when the club reaches it.
+	state = State.SWINGING
+	aim_line.visible = false
+	golfer.swing(power)
+	await golfer.impact
+	if state != State.SWINGING:
+		return
 	var ball := balls[current]
 	last_rest = ball.global_position
 	Game.players[current]["strokes"] += 1
@@ -196,7 +204,8 @@ func _process(delta: float) -> void:
 
 	var aiming := state == State.AIMING
 	aim_line.visible = aiming
-	golfer.visible = aiming
+	# Keep the golfer on screen through the swing's follow-through.
+	golfer.visible = aiming or state == State.SWINGING or golfer.is_swinging()
 	if not aiming:
 		return
 
@@ -216,9 +225,9 @@ func _process(delta: float) -> void:
 
 	var start := ball.global_position
 	aim_line.points = PackedVector2Array([start, start + _aim_direction() * (30.0 + power * 1.7)])
-	# Stand the ASCII golfer behind the ball, facing the shot.
-	var behind := -1.0 if aim_angle <= 90.0 else 1.0
-	golfer.global_position = start + Vector2(behind * 26.0 - golfer.size.x / 2.0, -golfer.size.y + 8.0)
+	# Stand the golfer behind the ball, facing the shot.
+	golfer.facing = 1.0 if aim_angle <= 90.0 else -1.0
+	golfer.global_position = start - Vector2(Golfer.BALL_OFFSET.x * golfer.facing, Golfer.BALL_OFFSET.y)
 	hud.update_aim(aim_angle, power)
 
 
