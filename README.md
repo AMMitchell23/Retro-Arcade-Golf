@@ -32,6 +32,18 @@ Built with **Godot 4.7** (GDScript).
 Local multiplayer is hot-seat and turn-based (FR-16): players share the keyboard and take turns, the others' balls are dimmed.
 A results screen (FR-26) ranks players by strokes at the end of the hole.
 
+## Holes
+
+The match plays the holes in `LEVELS` (`scripts/game.gd`) in order. After each hole the results panel ranks that hole
+and shows running totals, with **NEXT HOLE** to move on. After the last hole it shows a scorecard with every hole,
+the totals and the score to par, and **PLAY AGAIN** restarts the match from Hole 1.
+
+| Hole | Par | Width | Color | What's on it |
+| --- | --- | --- | --- | --- |
+| 1 | 3 | 2000 | green | a small hump, a raised ledge, then a flat green |
+| 2 | 4 | 2600 | cyan | a valley, a tall mesa to clear, and a backstop behind the cup |
+| 3 | 5 | 3200 | purple | a staircase, a deep ravine, a big hill, and a bump guarding the cup |
+
 ## Project layout
 
 ```
@@ -40,8 +52,8 @@ assets/neon_theme.tres buttons, panels, monospace font
 scenes/main_menu.tscn  Main Menu + Play Menu
 scenes/ball.tscn       RigidBody2D golf ball
 scenes/hud.tscn        in-game HUD and results panel
-scenes/levels/         one scene per hole
-scripts/game.gd        global state: players, colors, level list (autoload "Game")
+scenes/levels/         one scene per hole (level_1 to level_3)
+scripts/game.gd        global state: players, colors, level list, scores per hole (autoload "Game")
 scripts/level.gd       builds the course and runs the turns
 scripts/ball.gd        ball drawing, launch and stop
 scripts/hud.gd         HUD text, messages, results
@@ -58,5 +70,5 @@ scripts/hud.gd         HUD text, messages, results
 
 - Roulette wheel modifier after the shot is planned (FR-18, FR-19): hook is marked `TODO` in `level.gd` `_shoot()`.
 - Shot clock and skipping a turn when it runs out (FR-22, FR-23).
-- Scorecard between holes and more levels (FR-25, FR-13).
+- A full scorecard screen (FR-25) and holes 4 to 10 (FR-13).
 - Player names and colors picked in a lobby (FR-05, FR-06).
