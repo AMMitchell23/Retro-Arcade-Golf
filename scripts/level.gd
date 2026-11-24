@@ -55,6 +55,9 @@ func _ready() -> void:
 	# Lets you run this scene directly (F6) without going through the menu.
 	if Game.players.is_empty():
 		Game.setup_players(1)
+	var index := Game.LEVELS.find(scene_file_path)
+	if index != -1:
+		Game.level_index = index
 
 	for i in Game.players.size():
 		var player: Dictionary = Game.players[i]
@@ -133,7 +136,8 @@ func _finish() -> void:
 	state = State.FINISHED
 	aim_line.visible = false
 	golfer.visible = false
-	hud.show_results(Game.players, par)
+	Game.record_hole(par)
+	hud.show_results(Game.players, par, Game.is_last_level())
 
 
 func _on_cup_body_entered(body: Node2D) -> void:
